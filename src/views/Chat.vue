@@ -47,3 +47,37 @@
     <ChatDialog :showDialog="openPrivateChat" @close-chat="closePrivateChat()"> </ChatDialog>
   </div>
 </template>
+
+<script>
+export default {
+  name: "chat",
+  components: { UserList, ChatArea, MessageArea, ChatDialog },
+  // Server event listeners
+  sockets: {
+    // newMessage server even
+    newMessage: function({ message, username }) {
+      if (message.replace(/\s/g, "").length === 0) return; // No empty messages
+      const isMe = this.$store.state.username === username;
+      const msg = isMe ? ` ${message}` : { username, message };
+      this.message.push({ msg, isMe });
+    }
+    //Rest of listeners:
+    // newUser, privateChat, privateMessage, leavePrivateRoom, leaveChat
+  },
+  beforeCreate: function() {
+      this.$socket.emit(WS_EVENTS.joinRoom, this.$store.state); // Join the room
+  },
+  data: // chat data,
+  methods: {
+    sendMessage(msg) {
+      // Send a new public message
+      this.$socket.emit(WS_EVENTS.publicMessage, { 
+        ...this.$store.state, 
+        message: msg 
+      });
+    },
+    // Rest of methods:
+    // onChangeRoom, openChat, closePrivateChat, logout
+  }
+};
+</script>
