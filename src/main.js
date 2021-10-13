@@ -1,5 +1,8 @@
-import VueSocketIO from 'vue-socket.io';
+import Vue from 'vue';
 import VueResource from 'vue-resource';
+import VueSocketIO from 'vue-socket.io';
+import App from './App.vue';
+import router from './router';
 import store from './store';
 import { url } from './utils/config';
 
