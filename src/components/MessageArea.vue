@@ -12,20 +12,20 @@
 
 <script>
 export default {
-  name: "MessageArea",
+  name: 'MessageArea',
   props: {},
-  data: function() {
+  data() {
     return {
-      message: ""
+      message: '',
     };
   },
   methods: {
     sendMessage() {
-      const msg = this.message.replace(/\n/g,'')
-      this.$emit("send-message", msg);
-      this.message = "";
-    }
-  }
+      const msg = this.message.replace(/\n/g, '');
+      this.$emit('send-message', msg);
+      this.message = '';
+    },
+  },
 };
 </script>
 
