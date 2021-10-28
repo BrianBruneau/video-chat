@@ -1,4 +1,5 @@
 const config = require('../config');
+const { privateMessagePCSignaling } = require('./events');
 
 // Socket namespace
 let namespace;
@@ -17,6 +18,8 @@ const onConnection = (socket) => {
   socket.on('leavePrivateRoom', events.leavePrivateRoom(socket, namespace)); // Leave private chat
   socket.on('privateMessage', events.privateMessage(namespace)); // Private message
   socket.on('changeStatus', events.changeStatus(socket, namespace)); // // Set status
+  // Private message for Signaling PeerConnection
+  socket.on('privateMessagePCSignaling', events.privateMessagePCSignaling(namespace))
 };
 
 exports.createNameSpace = (io) => {

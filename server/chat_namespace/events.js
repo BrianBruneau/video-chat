@@ -52,3 +52,15 @@ const leavePrivateRoom = (socket, namespace) => ({ room, from, to }) => {
     console.log(`user ${from} left the private chat with ${to}`);
   });
 };
+
+
+const privateMessagePCSignaling = (namespace) => ({desc, to, from, room}) => {
+    // private signa;ing message to the user
+    // desc is the local session description of the user emitting the event
+    namespace.to(room).emit('privateMessagePCSignaling', {desc, to, from})
+}
+
+module.exports = {
+    // Other events
+    privateMessagePCSignaling
+}
